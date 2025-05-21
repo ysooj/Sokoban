@@ -26,6 +26,12 @@ char maze[SIZE][SIZE] = {
 	{'1','1','1','1','1','1','1','1','1','1'}
 };
 
+struct ball
+{
+	int ballX;
+	int ballY;
+};
+
 void Initialize()	// 초기화 함수
 {
 	CONSOLE_CURSOR_INFO cursor;	// 커서에 대한 정보
@@ -120,6 +126,19 @@ void Release()
 	CloseHandle(screen[1]);
 }
 
+void Restart(char resetMaze[SIZE][SIZE], int x, int y)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		for (int j = 0; j < SIZE; j++)
+		{
+			resetMaze[i][j] = maze[i][j];
+		}
+	}
+	x = 2;	// 초기 플레이어 X 좌표
+	y = 1;	// 초기 플레이어 Y 좌표
+}
+
 int main()
 {
 	// 동기 방식으로 키 입력을 받아볼 것이다.
@@ -129,6 +148,11 @@ int main()
 	int y = 1;
 
 	Initialize();
+
+	// 게임 시작 시 바로 맵 렌더링
+	DrawMaze(maze);
+	Render(x, y, "★");
+	Render(0, 11, "Press R to restart the game!");
 
 	while (1)
 	{
@@ -141,6 +165,11 @@ int main()
 		if (key == -32)
 		{
 			key = _getch();
+		}
+
+		if (key == 'R' || key == 'r')
+		{
+			Restart(maze, x, y);
 		}
 
 		int nextX = x;
@@ -161,23 +190,25 @@ int main()
 			break;
 		}
 
+		int directionX = (nextX - x) / 2;
+		int directionY = nextY - y;
+
+		struct ball ballXY = { nextX / 2 + directionX, nextY + directionY };
+
 		if (maze[nextY][nextX / 2] != '1')
 		{
 			if (maze[nextY][nextX / 2] == 'B')
 			{
-				int directionX = (nextX - x) / 2;
-				int directionY = nextY - y;
+				if (maze[ballXY.ballY][ballXY.ballX] != '1')
+				{
+					maze[nextY][nextX / 2] = '0';
+					maze[ballXY.ballY][ballXY.ballX] = 'B';
 
-				int ballX = nextX / 2 + directionX;
-				int ballY = nextY + directionY;
-
-				maze[nextY][nextX / 2] == '0';
-				maze[ballY][ballX] == 'B';
-
-				x = nextX;
-				y = nextY;
+					x = nextX;
+					y = nextY;
+				}
 			}
-
+			
 			else
 			{
 				x = nextX;
@@ -186,17 +217,22 @@ int main()
 		}
 
 		DrawMaze(maze);
-
 		Render(x, y, "★");
+		Render(0, 11, "Press R to restart the game!");
 	}
 	
 	Release();
 	return 0;
 }
 
+// (5.20)
 // [벽으로는 이동하지 못하게 하기]
 // x축은 무조건 짝수로 위치
 // 현재 위치에서 벽이 있는 곳을 미리 계산해야 한다.
 
 // [공 옮기기]
 // 구조체를 하나 만들어서, 그 구조체의 정보를 가져와서 대신 이동하게 해보자.
+
+
+// (5.21)
+// 타입 입출력으로 스테이지를 구성해보자.

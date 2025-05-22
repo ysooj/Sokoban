@@ -3,6 +3,8 @@
 #include <conio.h>	// 동기화 관련
 #include <string.h>	// string 관련
 
+#include "Map.h"
+
 int screenIndex;	// 버퍼의 인덱스 번호
 HANDLE screen[2];
 
@@ -13,18 +15,7 @@ HANDLE screen[2];
 
 #define SIZE 10
 
-char maze[SIZE][SIZE] = {
-	{'1','1','1','1','1','1','1','1','1','1'},
-	{'1','P','0','1','0','0','0','0','0','1'},
-	{'1','0','0','1','0','1','1','1','0','1'},
-	{'1','0','1','1','0','1','G','1','0','1'},
-	{'1','0','1','0','0','1','0','1','0','1'},
-	{'1','0','1','0','B','0','0','1','0','1'},
-	{'1','0','1','1','1','1','0','1','0','1'},
-	{'1','0','0','0','0','0','0','1','0','1'},
-	{'1','0','0','0','0','0','0','0','0','1'},
-	{'1','1','1','1','1','1','1','1','1','1'}
-};
+char maze[SIZE][SIZE];
 
 struct ball
 {
@@ -126,17 +117,23 @@ void Release()
 	CloseHandle(screen[1]);
 }
 
-void Restart(char resetMaze[SIZE][SIZE], int x, int y)
+void Restart(char resetMaze[SIZE][SIZE], int * x, int * y)
 {
-	for (int i = 0; i < SIZE; i++)
-	{
-		for (int j = 0; j < SIZE; j++)
-		{
-			resetMaze[i][j] = maze[i][j];
-		}
-	}
-	x = 2;	// 초기 플레이어 X 좌표
-	y = 1;	// 초기 플레이어 Y 좌표
+	LoadMap("Map.txt", resetMaze);
+
+	* x = 2;
+	* y = 1;
+}
+
+void NextStage(int * stageNumber)
+{
+	char map[20];
+
+	sprintf_s(map, sizeof(map), "Map%d.txt", *stageNumber);
+
+	LoadMap(map, maze);
+
+	(*stageNumber)++;
 }
 
 int main()
@@ -146,6 +143,10 @@ int main()
 
 	int x = 2;
 	int y = 1;
+
+	int stageNumber = 1;
+
+	LoadMap("Map.txt", maze);
 
 	Initialize();
 
@@ -169,7 +170,7 @@ int main()
 
 		if (key == 'R' || key == 'r')
 		{
-			Restart(maze, x, y);
+			Restart(maze, &x, &y);
 		}
 
 		int nextX = x;
@@ -207,6 +208,11 @@ int main()
 					x = nextX;
 					y = nextY;
 				}
+
+				else if (maze[ballXY.ballY][ballXY.ballX] == 'G')
+				{
+					NextStage(&stageNumber);
+				}
 			}
 			
 			else
@@ -235,5 +241,9 @@ int main()
 
 
 // (5.21)
-// 타입 입출력으로 스테이지를 구성해보자.
 // txt 파일로 스테이지를 관리해보자.
+
+
+// (5.22)
+// 맵 여러 개 만들고 읽어오기.
+// 내일은 모든 B를 모든 G에 넣었을 때, 다음 스테이지로 넘어가도록 만들어보자!

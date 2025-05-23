@@ -5,23 +5,19 @@
 
 #include "Map.h"
 
-int screenIndex;	// 버퍼의 인덱스 번호
-HANDLE screen[2];
-
 #define UP 72
 #define LEFT 75 
 #define RIGHT 77
 #define DOWN 80
 
 #define SIZE 10
+#define MAXSTAGE 9
 
 char maze[SIZE][SIZE];
+char originalMap[SIZE][SIZE];
 
-struct ball
-{
-	int ballX;
-	int ballY;
-};
+int screenIndex;	// 버퍼의 인덱스 번호
+HANDLE screen[2];
 
 void Initialize()	// 초기화 함수
 {
@@ -117,24 +113,57 @@ void Release()
 	CloseHandle(screen[1]);
 }
 
-void Restart(char resetMaze[SIZE][SIZE], int * x, int * y)
+void Restart(char resetMaze[SIZE][SIZE], int * x, int * y, int stageNumber)
 {
-	LoadMap("Map.txt", resetMaze);
+	char map[20];
+	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
+
+	LoadMap(map, resetMaze, originalMap);
 
 	* x = 2;
 	* y = 1;
 }
 
-void NextStage(int * stageNumber)
+int NextStage(int* stageNumber, char map[SIZE][SIZE], char originalMap[SIZE][SIZE])
 {
-	char map[20];
+	*stageNumber += 1;
 
-	sprintf_s(map, sizeof(map), "Map%d.txt", *stageNumber);
+	if (*stageNumber >= MAXSTAGE)
+	{
+		return 0;	// 게임 종료
+	}
 
-	LoadMap(map, maze);
+	int a = *stageNumber;
 
-	(*stageNumber)++;
+	char mapfile[20];
+
+	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", a);
+
+	LoadMap(map, maze, originalMap);
+
+	return 1;	// 다음 스테이지로 넘어감
 }
+
+int StageClear(char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		for (int j = 0; j < SIZE; j++)
+		{
+			if (originalMap[i][j] == 'G' && maze[i][j] != 'B')
+			{
+				return 0;	// G에 아직 B가 오지 않아서 아직 클리어 상태가 아님
+			}
+		}
+	}
+	return 1;
+}
+
+struct ball
+{
+	int ballX;
+	int ballY;
+};
 
 int main()
 {
@@ -146,7 +175,9 @@ int main()
 
 	int stageNumber = 1;
 
-	LoadMap("Map.txt", maze);
+	char map[20];
+	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
+	LoadMap(map, maze, originalMap);
 
 	Initialize();
 
@@ -170,7 +201,7 @@ int main()
 
 		if (key == 'R' || key == 'r')
 		{
-			Restart(maze, &x, &y);
+			Restart(maze, &x, &y, stageNumber);
 		}
 
 		int nextX = x;
@@ -200,18 +231,13 @@ int main()
 		{
 			if (maze[nextY][nextX / 2] == 'B')
 			{
-				if (maze[ballXY.ballY][ballXY.ballX] != '1')
+				if (maze[ballXY.ballY][ballXY.ballX] != '1' && maze[ballXY.ballY][ballXY.ballX] != 'B')
 				{
-					maze[nextY][nextX / 2] = '0';
+					maze[nextY][nextX / 2] = originalMap[nextY][nextX / 2] == 'G' ? 'G' : '0';
 					maze[ballXY.ballY][ballXY.ballX] = 'B';
 
 					x = nextX;
 					y = nextY;
-				}
-
-				else if (maze[ballXY.ballY][ballXY.ballX] == 'G')
-				{
-					NextStage(&stageNumber);
 				}
 			}
 			
@@ -225,6 +251,29 @@ int main()
 		DrawMaze(maze);
 		Render(x, y, "★");
 		Render(0, 11, "Press R to restart the game!");
+
+		if (StageClear(maze, originalMap))
+		{
+			if (!NextStage(&stageNumber, map, originalMap))
+			{
+				Clear();
+				Render(0, 5, "All stages cleared. Congratulations!");
+				Flip();
+				break;
+			}
+
+			x = 2;
+			y = 1;
+
+			// 다음 스테이지가 자동으로 바로 보이도록!
+			// 이 부분은 내일 수정해야 해. 맵을 완성하면 자동으로 넘어가게 하려고
+			// 넣은 코드인데, 테스트 해보고 삭제 or 수정해야 함.
+			Clear();
+			DrawMaze(maze);
+			Render(x, y, "★");
+			Render(0, 11, "Press R to restart the game!");
+			Flip();
+		}
 	}
 	
 	Release();
@@ -247,3 +296,11 @@ int main()
 // (5.22)
 // 맵 여러 개 만들고 읽어오기.
 // 내일은 모든 B를 모든 G에 넣었을 때, 다음 스테이지로 넘어가도록 만들어보자!
+
+
+// (5.23)
+// 개방 폐쇄 원칙이란?
+// 콘솔 창 크기 맞추는 함수 맞들기
+// or 맵 크기 키우기
+// 유저 인터페이스 만들기
+// BGM

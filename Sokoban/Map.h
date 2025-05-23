@@ -2,9 +2,8 @@
 #include <stdio.h>
 
 #define SIZE 10
-#define RSIZE 100000
 
-void LoadMap(const char* map, char maze[SIZE][SIZE])
+void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
 {
     FILE* file = fopen(map, "r");
 
@@ -30,6 +29,7 @@ void LoadMap(const char* map, char maze[SIZE][SIZE])
 
             // 문자 저장
             maze[i][j] = (char)ch;
+            originalMap[i][j] = (char)ch;
         }
     }
 

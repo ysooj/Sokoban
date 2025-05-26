@@ -11,7 +11,7 @@
 #define DOWN 80
 
 #define SIZE 10
-#define MAXSTAGE 9
+#define MAXSTAGE 10
 
 char maze[SIZE][SIZE];
 char originalMap[SIZE][SIZE];
@@ -119,12 +119,10 @@ void Restart(char resetMaze[SIZE][SIZE], int * x, int * y, int stageNumber)
 	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
 
 	LoadMap(map, resetMaze, originalMap);
-
-	* x = 2;
-	* y = 1;
+	FindPlayer(resetMaze, x, y);
 }
 
-int NextStage(int* stageNumber, char map[SIZE][SIZE], char originalMap[SIZE][SIZE])
+int NextStage(int* stageNumber, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
 {
 	*stageNumber += 1;
 
@@ -133,13 +131,24 @@ int NextStage(int* stageNumber, char map[SIZE][SIZE], char originalMap[SIZE][SIZ
 		return 0;	// 게임 종료
 	}
 
-	int a = *stageNumber;
-
 	char mapfile[20];
 
-	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", a);
+	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", *stageNumber);
 
-	LoadMap(map, maze, originalMap);
+	FILE* test = fopen(mapfile, "r");
+	if (test == NULL)
+	{
+		printf("다음 스테이지(%s)를 열 수 없습니다.\n", mapfile);
+		system("pause");
+		exit(1);
+	}
+	fclose(test);
+
+	int x = 2;
+	int y = 1;
+
+	LoadMap(mapfile, maze, originalMap);
+	FindPlayer(maze, &x, &y);
 
 	return 1;	// 다음 스테이지로 넘어감
 }
@@ -178,6 +187,7 @@ int main()
 	char map[20];
 	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
 	LoadMap(map, maze, originalMap);
+	FindPlayer(maze, &x, &y);
 
 	Initialize();
 
@@ -254,26 +264,28 @@ int main()
 
 		if (StageClear(maze, originalMap))
 		{
-			if (!NextStage(&stageNumber, map, originalMap))
+			if (!NextStage(&stageNumber, maze, originalMap))
 			{
-				Clear();
-				Render(0, 5, "All stages cleared. Congratulations!");
-				Flip();
-				break;
+				// Clear();
+				// Render(0, 5, "All stages cleared. Congratulations!");
+				// Flip();
+				// break;
 			}
 
-			x = 2;
-			y = 1;
+			//	플레이어 위치를 P로 하기 위해서 주석처리 해놓음.
+			//	x = 2;
+			//	y = 1;
 
 			// 다음 스테이지가 자동으로 바로 보이도록!
 			// 이 부분은 내일 수정해야 해. 맵을 완성하면 자동으로 넘어가게 하려고
 			// 넣은 코드인데, 테스트 해보고 삭제 or 수정해야 함.
-			Clear();
+			//Clear();
 			DrawMaze(maze);
-			Render(x, y, "★");
-			Render(0, 11, "Press R to restart the game!");
-			Flip();
+			//Render(x, y, "★");
+			//Render(0, 11, "Press R to restart the game!");
+			//Flip();
 		}
+		Render(x, y, "★");
 	}
 	
 	Release();
@@ -304,3 +316,7 @@ int main()
 // or 맵 크기 키우기
 // 유저 인터페이스 만들기
 // BGM
+
+// (5.26)
+// 다음 스테이지로 넘어가면 플레이어 위치가 내가 플레이하던 그대로다.
+// P 위치로 플레이어 위치를 지정해야 한다.

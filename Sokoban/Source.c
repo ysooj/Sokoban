@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
-#include <conio.h>	// 동기화 관련
-#include <string.h>	// string 관련
+#include <conio.h>		// 동기화 관련
+#include <string.h>		// string 관련
+#include <windows.h>	// sleep 함수를 쓰기 위해
 
 #include "Map.h"
 
@@ -10,7 +11,7 @@
 #define RIGHT 77
 #define DOWN 80
 
-#define SIZE 10
+#define SIZE 20
 #define MAXSTAGE 10
 
 char maze[SIZE][SIZE];
@@ -22,6 +23,8 @@ HANDLE screen[2];
 void Initialize()	// 초기화 함수
 {
 	CONSOLE_CURSOR_INFO cursor;	// 커서에 대한 정보
+	COORD bufferSize = { SIZE * 2, SIZE };	// 문자 폭 * 2 (한글 2byte 또는 Render(j*2, i, ...) 고려)
+	SMALL_RECT windowSize = { 0, 0, SIZE * 2 + 3, SIZE + 3 };
 
 	// 화면 버퍼를 2개 생성합니다.
 	screen[0] = CreateConsoleScreenBuffer
@@ -39,8 +42,12 @@ void Initialize()	// 초기화 함수
 	cursor.dwSize = 1;
 	cursor.bVisible = FALSE; // FALSE = 0
 
-	SetConsoleCursorInfo(screen[0], &cursor);
-	SetConsoleCursorInfo(screen[1], &cursor);
+	for (int i = 0; i < 2; i++)
+	{
+		SetConsoleScreenBufferSize(screen[i], bufferSize);	// 버퍼 크기 설정
+		SetConsoleWindowInfo(screen[i], TRUE, &windowSize);	// 창 크기 설정
+		SetConsoleCursorInfo(screen[i], &cursor);			// 커서 숨김
+	}
 }
 
 void Flip()	// screen 2개를 교체시켜주는 함수 ; 플리핑
@@ -115,23 +122,40 @@ void Release()
 
 void Restart(char resetMaze[SIZE][SIZE], int * x, int * y, int stageNumber)
 {
-	char map[20];
+	char map[100];
+	// 지도 자체를 저장하는 배열이 아님. 일반적으로 이 배열은 문자 하나하나에 대응하는 값, 즉 문자 → 의미(숫자)의 매핑을 저장하기 위한 배열
+	// 예) map['P'] = 2; // 플레이어는 2
+	//	   map['0'] = 0; // 빈공간은 0
+	//	   map['1'] = 1; // 벽은 1
+	//	   map['B'] = 3; // 블럭은 3
+	//	   map['G'] = 4; // 골은 4
+	// 총 5개의 문자가 등장하지만, 중요한 건 등장 문자 개수가 아니라 문자의 ASCII 값 중 '최대값'
+	// 문자	|  ASCII 코드
+	// '0'	|  48
+	// '1'	|  49
+	// 'P'	|  80
+	// 'B'	|  66
+	// 'G'	|  71
+	// 가장 큰 ASCII 값: 'P' = 80
+	// 따라서 map[81]이면 map[0] ~ map[80]까지 접근 가능 → 충분함
+	// 그러나 조금 여유 있게 하고 싶다면 map[100] 정도로 설정하는 것이 안전하고도 메모리 낭비가 거의 없음
+
 	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
 
 	LoadMap(map, resetMaze, originalMap);
 	FindPlayer(resetMaze, x, y);
 }
 
-int NextStage(int* stageNumber, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
+int NextStage(int* stageNumber, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE], int * x, int * y)
 {
 	*stageNumber += 1;
 
-	if (*stageNumber >= MAXSTAGE)
+	if (*stageNumber > MAXSTAGE)
 	{
 		return 0;	// 게임 종료
 	}
 
-	char mapfile[20];
+	char mapfile[100];
 
 	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", *stageNumber);
 
@@ -144,11 +168,8 @@ int NextStage(int* stageNumber, char maze[SIZE][SIZE], char originalMap[SIZE][SI
 	}
 	fclose(test);
 
-	int x = 2;
-	int y = 1;
-
 	LoadMap(mapfile, maze, originalMap);
-	FindPlayer(maze, &x, &y);
+	FindPlayer(maze, x, y);
 
 	return 1;	// 다음 스테이지로 넘어감
 }
@@ -184,7 +205,7 @@ int main()
 
 	int stageNumber = 1;
 
-	char map[20];
+	char map[100];
 	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
 	LoadMap(map, maze, originalMap);
 	FindPlayer(maze, &x, &y);
@@ -194,7 +215,8 @@ int main()
 	// 게임 시작 시 바로 맵 렌더링
 	DrawMaze(maze);
 	Render(x, y, "★");
-	Render(0, 11, "Press R to restart the game!");
+	Render(0, 21, "Press R to restart the game!");
+	Render(0, 23, "Press Q to quit the game!");
 
 	while (1)
 	{
@@ -212,6 +234,11 @@ int main()
 		if (key == 'R' || key == 'r')
 		{
 			Restart(maze, &x, &y, stageNumber);
+		}
+
+		if (key == 'Q' || key == 'q')
+		{
+			break;
 		}
 
 		int nextX = x;
@@ -260,16 +287,18 @@ int main()
 
 		DrawMaze(maze);
 		Render(x, y, "★");
-		Render(0, 11, "Press R to restart the game!");
+		Render(0, 21, "Press R to restart the game!");
+		Render(0, 23, "Press Q to quit the game!");
 
 		if (StageClear(maze, originalMap))
 		{
-			if (!NextStage(&stageNumber, maze, originalMap))
+			if (!NextStage(&stageNumber, maze, originalMap, &x, &y))
 			{
-				// Clear();
-				// Render(0, 5, "All stages cleared. Congratulations!");
-				// Flip();
-				// break;
+				Clear();
+				Render(0, 5, "All stages cleared. Congratulations!");
+				Flip();
+				Sleep(3000);	// 3초 후 break
+				break;
 			}
 
 			//	플레이어 위치를 P로 하기 위해서 주석처리 해놓음.
@@ -320,3 +349,7 @@ int main()
 // (5.26)
 // 다음 스테이지로 넘어가면 플레이어 위치가 내가 플레이하던 그대로다.
 // P 위치로 플레이어 위치를 지정해야 한다.
+
+// (5.27)
+// BGM
+// 맵 파일 6부터 수정해야 함.

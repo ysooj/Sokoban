@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 
-#define SIZE 10
+#define SIZE 20
 
 void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
 {

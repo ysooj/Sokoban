@@ -2,7 +2,10 @@
 #include <windows.h>
 #include <conio.h>		// 동기화 관련
 #include <string.h>		// string 관련
-#include <windows.h>	// sleep 함수를 쓰기 위해
+#include <Windows.h>	// sleep 함수, 콘솔 창 글자 색상 변경 기능을 쓰기 위해
+#include <mmsystem.h>	// bgm을 넣기 위해
+
+#pragma comment(lib, "winmm.lib")	// bgm을 넣기 위해
 
 #include "Map.h"
 
@@ -20,11 +23,31 @@ char originalMap[SIZE][SIZE];
 int screenIndex;	// 버퍼의 인덱스 번호
 HANDLE screen[2];
 
+enum Color
+{
+	BLACK,
+	DARKBLUE,
+	DARKGREEN,
+	DARKSKYBLUE,
+	DARKRED,
+	DARKVIOLET,
+	DARKYELLOW,
+	GRAY,
+	DARKGRAY,
+	BLUE,
+	GREEN,
+	SKYBLUE,
+	RED,
+	PURPLE,
+	YELLOW,
+	WHITE
+};
+
 void Initialize()	// 초기화 함수
 {
 	CONSOLE_CURSOR_INFO cursor;	// 커서에 대한 정보
 	COORD bufferSize = { SIZE * 2, SIZE };	// 문자 폭 * 2 (한글 2byte 또는 Render(j*2, i, ...) 고려)
-	SMALL_RECT windowSize = { 0, 0, SIZE * 2 + 3, SIZE + 3 };
+	SMALL_RECT windowSize = { 0, 0, SIZE * 2 + 5, SIZE + 5 };
 
 	// 화면 버퍼를 2개 생성합니다.
 	screen[0] = CreateConsoleScreenBuffer
@@ -84,6 +107,11 @@ void Render(int x, int y, const char* string)	// 더블 버퍼를 쓸 때는 이것을 이용
 	WriteFile(screen[screenIndex], string, strlen(string), &dword, NULL);	// string의 길이만큼 string을 출력해줌.
 }
 
+void textColor(int color)
+{
+	SetConsoleTextAttribute(screen[screenIndex], color);
+}
+
 void DrawMaze(char maze[SIZE][SIZE])
 {
 	// 맵의 모든 위치에 대해 출력
@@ -98,16 +126,19 @@ void DrawMaze(char maze[SIZE][SIZE])
 
 			else if (maze[i][j] == '1')
 			{
+				textColor(WHITE);
 				Render(j * 2, i, "■");
 			}
 
 			else if (maze[i][j] == 'G')
 			{
+				textColor(RED);
 				Render(j * 2, i, "○");
 			}
 
 			else if (maze[i][j] == 'B')
 			{
+				textColor(GREEN);
 				Render(j * 2, i, "●");
 			}
 		}
@@ -123,7 +154,7 @@ void Release()
 void Restart(char resetMaze[SIZE][SIZE], int * x, int * y, int stageNumber)
 {
 	char map[100];
-	// 지도 자체를 저장하는 배열이 아님. 일반적으로 이 배열은 문자 하나하나에 대응하는 값, 즉 문자 → 의미(숫자)의 매핑을 저장하기 위한 배열
+	// map 자체를 저장하는 배열이 아님. 일반적으로 이 배열은 문자 하나하나에 대응하는 값, 즉 문자 → 의미(숫자)의 매핑을 저장하기 위한 배열
 	// 예) map['P'] = 2; // 플레이어는 2
 	//	   map['0'] = 0; // 빈공간은 0
 	//	   map['1'] = 1; // 벽은 1
@@ -210,13 +241,25 @@ int main()
 	LoadMap(map, maze, originalMap);
 	FindPlayer(maze, &x, &y);
 
+	char currentStage[50];
+	sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+
 	Initialize();
 
 	// 게임 시작 시 바로 맵 렌더링
 	DrawMaze(maze);
-	Render(x, y, "★");
-	Render(0, 21, "Press R to restart the game!");
+	textColor(DARKYELLOW);         // 보라색으로 설정
+	Render(x, y, "★");         // 플레이어 출력
+	textColor(WHITE);          // 색상 원상복구 (안 하면 UI도 보라색됨)
+	Render(0, 20, "『");
+	Render(3, 20, currentStage);
+	Render(12, 20, "』");
+	Render(0, 22, "Press R to restart the game!");
 	Render(0, 23, "Press Q to quit the game!");
+
+	PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC | SND_LOOP);	// 시작할 때 BGM 재생
+	// SND_ASYNC : 비동기 재생. 사운드를 백그라운드에서 재생하면서 다음 코드 계속 실행.
+	// SND_LOOP : 반복 재생. SND_ASYNC와 함께 사용해야 함.
 
 	while (1)
 	{
@@ -234,10 +277,12 @@ int main()
 		if (key == 'R' || key == 'r')
 		{
 			Restart(maze, &x, &y, stageNumber);
+			sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
 		}
 
 		if (key == 'Q' || key == 'q')
 		{
+			PlaySound(NULL, 0, 0);	// 종료 시 BGM 멈춤
 			break;
 		}
 
@@ -286,8 +331,13 @@ int main()
 		}
 
 		DrawMaze(maze);
-		Render(x, y, "★");
-		Render(0, 21, "Press R to restart the game!");
+		textColor(DARKYELLOW);         // 보라색으로 설정
+		Render(x, y, "★");         // 플레이어 출력
+		textColor(WHITE);          // 색상 원상복구 (안 하면 UI도 보라색됨)
+		Render(0, 20, "『");
+		Render(3, 20, currentStage);
+		Render(12, 20, "』");
+		Render(0, 22, "Press R to restart the game!");
 		Render(0, 23, "Press Q to quit the game!");
 
 		if (StageClear(maze, originalMap))
@@ -301,20 +351,14 @@ int main()
 				break;
 			}
 
-			//	플레이어 위치를 P로 하기 위해서 주석처리 해놓음.
-			//	x = 2;
-			//	y = 1;
+			// stageNumber가 바뀌었으므로 currentStage 갱신
+			sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
 
-			// 다음 스테이지가 자동으로 바로 보이도록!
-			// 이 부분은 내일 수정해야 해. 맵을 완성하면 자동으로 넘어가게 하려고
-			// 넣은 코드인데, 테스트 해보고 삭제 or 수정해야 함.
-			//Clear();
 			DrawMaze(maze);
-			//Render(x, y, "★");
-			//Render(0, 11, "Press R to restart the game!");
-			//Flip();
 		}
-		Render(x, y, "★");
+		textColor(DARKYELLOW);         // 보라색으로 설정
+		Render(x, y, "★");         // 플레이어 출력
+		textColor(WHITE);          // 색상 원상복구 (안 하면 UI도 보라색됨)
 	}
 	
 	Release();
@@ -353,3 +397,7 @@ int main()
 // (5.27)
 // BGM
 // 맵 파일 6부터 수정해야 함.
+// wav 파일. 안 되면 mp3 파일.
+// playsound() 함수를 사용하여 bgm 넣기.
+// 색 입히기.
+// 총 10개의 맵이 있어. 60초 안에 모든 스테이지를 다 깨야 해. 60초가 지나면 "시간이 끝났습니다. 실패했습니다. 다시 시작하려면 S를 눌러주세요." 라는 문구가 떴으면 좋겠어.

@@ -4,6 +4,7 @@
 #include <string.h>		// string 관련
 #include <Windows.h>	// sleep 함수, 콘솔 창 글자 색상 변경 기능을 쓰기 위해
 #include <mmsystem.h>	// bgm을 넣기 위해
+#include <time.h>		// 타이머 기능을 사용하기 위해
 
 #pragma comment(lib, "winmm.lib")	// bgm을 넣기 위해
 
@@ -236,6 +237,9 @@ int main()
 
 	int stageNumber = 1;
 
+	// 타이머 관련
+	clock_t start;
+
 	char map[100];
 	sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
 	LoadMap(map, maze, originalMap);
@@ -245,6 +249,9 @@ int main()
 	sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
 
 	Initialize();
+
+	// 타이머 시작
+	start = clock();
 
 	// 게임 시작 시 바로 맵 렌더링
 	DrawMaze(maze);
@@ -267,66 +274,72 @@ int main()
 
 		Clear();
 
-		key = _getch();
-
-		if (key == -32)
+		// 키 입력 감지 ; _getch()는 키 입력이 없으면 프로그램 흐름이 멈추기 때문에
+		// Render(...), clock() 등 모든 로직도 정지된다.
+		// 따라서 _kbhit()로 입력을 비동기 체크해야 실시간으로 타이머와 화면을 갱신할 수 있다.
+		if (_kbhit())
 		{
 			key = _getch();
-		}
 
-		if (key == 'R' || key == 'r')
-		{
-			Restart(maze, &x, &y, stageNumber);
-			sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
-		}
-
-		if (key == 'Q' || key == 'q')
-		{
-			PlaySound(NULL, 0, 0);	// 종료 시 BGM 멈춤
-			break;
-		}
-
-		int nextX = x;
-		int nextY = y;
-
-		switch (key)
-		{
-		case 72:  if (y > 0) { nextY--; };
-			   break;
-
-		case 75: if (x > 0) { nextX -= 2; };
-			   break;
-
-		case 77: nextX += 2;
-			break;
-
-		case 80: nextY++;
-			break;
-		}
-
-		int directionX = (nextX - x) / 2;
-		int directionY = nextY - y;
-
-		struct ball ballXY = { nextX / 2 + directionX, nextY + directionY };
-
-		if (maze[nextY][nextX / 2] != '1')
-		{
-			if (maze[nextY][nextX / 2] == 'B')
+			if (key == -32)
 			{
-				if (maze[ballXY.ballY][ballXY.ballX] != '1' && maze[ballXY.ballY][ballXY.ballX] != 'B')
-				{
-					maze[nextY][nextX / 2] = originalMap[nextY][nextX / 2] == 'G' ? 'G' : '0';
-					maze[ballXY.ballY][ballXY.ballX] = 'B';
+				key = _getch();
+			}
 
+			if (key == 'R' || key == 'r')
+			{
+				Restart(maze, &x, &y, stageNumber);
+				sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+			}
+
+			if (key == 'Q' || key == 'q')
+			{
+				PlaySound(NULL, 0, 0);	// 종료 시 BGM 멈춤
+				break;
+			}
+
+			int nextX = x;
+			int nextY = y;
+
+			switch (key)
+			{
+			case 72:  if (y > 0) { nextY--; };
+				   break;
+
+			case 75: if (x > 0) { nextX -= 2; };
+				   break;
+
+			case 77: nextX += 2;
+				break;
+
+			case 80: nextY++;
+				break;
+			}
+
+			int directionX = (nextX - x) / 2;
+			int directionY = nextY - y;
+
+			struct ball ballXY = { nextX / 2 + directionX, nextY + directionY };
+
+			if (maze[nextY][nextX / 2] != '1')
+			{
+				if (maze[nextY][nextX / 2] == 'B')
+				{
+					if (maze[ballXY.ballY][ballXY.ballX] != '1' && maze[ballXY.ballY][ballXY.ballX] != 'B')
+					{
+						maze[nextY][nextX / 2] = originalMap[nextY][nextX / 2] == 'G' ? 'G' : '0';
+						maze[ballXY.ballY][ballXY.ballX] = 'B';
+
+						x = nextX;
+						y = nextY;
+					}
+				}
+
+				else
+				{
 					x = nextX;
 					y = nextY;
 				}
-			}
-			
-			else
-			{
-				x = nextX;
-				y = nextY;
 			}
 		}
 
@@ -339,6 +352,53 @@ int main()
 		Render(12, 20, "』");
 		Render(0, 22, "Press R to restart the game!");
 		Render(0, 23, "Press Q to quit the game!");
+
+		// 실시간 시간 출력
+		clock_t current = clock();
+		double elapsed = (double)(current - start) / CLOCKS_PER_SEC;
+		double remainedTime = 60.0 - elapsed;
+
+		if (remainedTime <= 0.0)
+		{
+			Clear();
+			textColor(RED);
+			Render(2, 10, "Time is up. You failed.");
+			textColor(WHITE);
+			Render(2, 12, "Press S to restart the game or Q to quit.");
+			Flip();
+
+			while (1)
+			{
+				if (_kbhit())
+				{
+					char retryKey = _getch();
+					if (retryKey == 'S' || retryKey == 's')
+					{
+						stageNumber = 1;
+						start = clock();
+
+						sprintf_s(map, sizeof(map), "Map%d.txt", stageNumber);
+						LoadMap(map, maze, originalMap);
+						FindPlayer(maze, &x, &y);
+						sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+						break;
+					}
+
+					if (retryKey == 'Q' || retryKey == 'q')
+					{
+						PlaySound(NULL, 0, 0);	// 종료 시 BGM 멈춤
+						break;
+					}
+				}
+			}
+			continue;
+		}
+
+		char timeStr[50];
+		sprintf_s(timeStr, sizeof(timeStr), "Time Left: %.1f seconds", remainedTime);
+		textColor(YELLOW);
+		Render(17, 20, timeStr);
+		textColor(WHITE);
 
 		if (StageClear(maze, originalMap))
 		{
@@ -356,6 +416,7 @@ int main()
 
 			DrawMaze(maze);
 		}
+
 		textColor(DARKYELLOW);         // 보라색으로 설정
 		Render(x, y, "★");         // 플레이어 출력
 		textColor(WHITE);          // 색상 원상복구 (안 하면 UI도 보라색됨)
@@ -390,9 +451,11 @@ int main()
 // 유저 인터페이스 만들기
 // BGM
 
+
 // (5.26)
 // 다음 스테이지로 넘어가면 플레이어 위치가 내가 플레이하던 그대로다.
 // P 위치로 플레이어 위치를 지정해야 한다.
+
 
 // (5.27)
 // BGM
@@ -400,4 +463,9 @@ int main()
 // wav 파일. 안 되면 mp3 파일.
 // playsound() 함수를 사용하여 bgm 넣기.
 // 색 입히기.
-// 총 10개의 맵이 있어. 60초 안에 모든 스테이지를 다 깨야 해. 60초가 지나면 "시간이 끝났습니다. 실패했습니다. 다시 시작하려면 S를 눌러주세요." 라는 문구가 떴으면 좋겠어.
+
+
+// (5.28)
+// 타이머 기능
+// S 누르면 게임 전체 재시작
+// 코드 모듈화

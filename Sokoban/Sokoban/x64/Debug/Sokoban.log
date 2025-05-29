@@ -1,3 +1,307 @@
 ﻿  Source.c
-C:\Users\Administrator\Desktop\Sokoban\Sokoban\Source.c(108,41): warning C4267: '함수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Sokoban.vcxproj -> C:\Users\Administrator\Desktop\Sokoban\Sokoban\x64\Debug\Sokoban.exe
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\windef.h(190,3): error C2059: 구문 오류: '상수'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\windef.h(192,9): error C2059: 구문 오류: '상수'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\windef.h(193,9): error C2059: 구문 오류: '상수'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1105,5): error C2061: 구문 오류: 식별자 'SIZEL'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1106,13): error C2061: 구문 오류: 식별자 'szlMillimeters'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1106,13): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1116,13): error C2061: 구문 오류: 식별자 'szlMicrometers'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1116,13): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1119,1): error C2059: 구문 오류: '}'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4054,74): error C2146: 구문 오류: ')'이(가) 'lpsize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4054,67): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4054,74): error C2061: 구문 오류: 식별자 'lpsize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4054,74): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4054,80): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4078,78): error C2146: 구문 오류: ')'이(가) 'lpsize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4078,71): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4078,78): error C2061: 구문 오류: 식별자 'lpsize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4078,78): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4078,84): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4236,18): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4236,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4236,18): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4236,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4237,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4245,18): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4245,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4245,18): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4245,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4246,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4260,18): error C2146: 구문 오류: ')'이(가) 'psizl' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4260,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4260,18): error C2061: 구문 오류: 식별자 'psizl'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4260,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4261,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4269,18): error C2146: 구문 오류: ')'이(가) 'psizl' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4269,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4269,18): error C2061: 구문 오류: 식별자 'psizl'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4269,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4270,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4287,18): error C2146: 구문 오류: ')'이(가) 'lpSize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4287,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4287,18): error C2061: 구문 오류: 식별자 'lpSize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4287,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4288,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4299,18): error C2146: 구문 오류: ')'이(가) 'lpSize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4299,11): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4299,18): error C2061: 구문 오류: 식별자 'lpSize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4299,18): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4300,5): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4361,115): error C2146: 구문 오류: ')'이(가) 'psize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4361,108): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4361,115): error C2061: 구문 오류: 식별자 'psize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4361,115): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4361,120): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4368,62): error C2146: 구문 오류: ')'이(가) 'lpSize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4368,55): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4368,62): error C2061: 구문 오류: 식별자 'lpSize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4368,62): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4369,49): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4536,69): error C2146: 구문 오류: ')'이(가) 'lpsize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4536,62): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4536,69): error C2061: 구문 오류: 식별자 'lpsize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4536,69): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4536,75): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4538,67): error C2146: 구문 오류: ')'이(가) 'lpsize' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4538,60): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4538,67): error C2061: 구문 오류: 식별자 'lpsize'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4538,67): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4538,73): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4881,95): error C2146: 구문 오류: ')'이(가) 'lpEnhMetaHeader' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4881,79): error C2081: 'LPENHMETAHEADER': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4881,95): error C2061: 구문 오류: 식별자 'lpEnhMetaHeader'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4881,95): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(4881,110): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5180,98): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5180,91): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5180,98): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5180,98): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5180,102): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5182,96): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5182,89): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5182,96): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5182,96): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5182,100): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5187,128): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5187,121): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5187,128): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5187,128): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5187,132): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5188,126): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5188,119): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5188,126): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5188,126): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5188,130): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5189,105): error C2146: 구문 오류: ')'이(가) 'lpsz' 식별자 앞에 없습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5189,98): error C2081: 'LPSIZE': 정식 매개 변수 목록에 있는 이름이 잘못되었습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5189,105): error C2061: 구문 오류: 식별자 'lpsz'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5189,105): error C2059: 구문 오류: ';'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5189,109): error C2059: 구문 오류: ')'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5658,5): error C2061: 구문 오류: 식별자 'SIZEL'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5659,1): error C2059: 구문 오류: '}'
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(5659,1): error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  

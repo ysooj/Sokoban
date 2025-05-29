@@ -1,5 +1,8 @@
 #pragma once
+// 맵 로딩 및 플레이어 위치 찾기
+
 #include <stdio.h>
+#include <stdlib.h>
 
 #define SIZE 20
 
@@ -36,7 +39,7 @@ void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE
     fclose(file); // 파일 닫기
 }
 
-void FindPlayer(char maze[SIZE][SIZE], int* px, int* py)
+void FindPlayer(char maze[SIZE][SIZE], int* x, int* y)
 {
     for (int i = 0; i < SIZE; i++)
     {
@@ -44,14 +47,14 @@ void FindPlayer(char maze[SIZE][SIZE], int* px, int* py)
         {
             if (maze[i][j] == 'P')
             {
-                *px = j * 2; // x 좌표는 출력 시 2칸씩 띄우므로 *2
-                *py = i;
+                *x = j * 2; // x 좌표는 출력 시 2칸씩 띄우므로 *2
+                *y = i;
 
                 return;
             }
         }
     }
     // 만약 못 찾으면 기본값 설정
-    *px = 2;
-    *py = 1;
+    *x = 2;
+    *y = 1;
 }

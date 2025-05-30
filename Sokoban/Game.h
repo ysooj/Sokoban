@@ -1,63 +1,53 @@
 #pragma once
 // 게임 로직
 
-#include <time.h>	// 타이머 기능을 사용하기 위해
+#include <stdio.h>
 
 #include "Map.h"
-#include "Render.h"
-#include "Sound.h"
 
-#define SIZE 20
+#define MAX_SIZE 20
 #define MAXSTAGE 10
 
-typedef struct
-{
-	int x, y;
-	int stage;
-	int gameRunning;
-	clock_t startTime;
-	char key;
-	char maze[SIZE][SIZE];
-	char originalMap[SIZE][SIZE];
-} GameState;
+int size;
 
-void InitGame(GameState* state)
-{
-	state->stage = 1;
-	state->gameRunning = 1;
-	state->startTime = clock();
-
-	char mapfile[100];
-	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", state->stage);
-	LoadMap(mapfile, state->maze, state->originalMap);
-	FindPlayer(state->maze, &state->x, &state->y);
-}
-
-void RestartStage(GameState* state)
+void Restart(char resetMaze[MAX_SIZE][MAX_SIZE], int* x, int* y, int stageNumber)
 {
 	char mapfile[100];
-	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", state->stage);
-	LoadMap(mapfile, state->maze, state->originalMap);
-	FindPlayer(state->maze, &state->x, &state->y);
-	state->startTime = clock();
+	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", stageNumber);
+	LoadMap(mapfile, resetMaze, resetMaze, size);
+	FindPlayer(resetMaze, x, y, size);
 }
 
-int StageClear(GameState* state)
+int NextStage(int* stageNumber, char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE], int* x, int* y)
 {
-	for (int i = 0; i < SIZE; i++)
-		for (int j = 0; j < SIZE; j++)
-			if (state->originalMap[i][j] == 'G' && state->maze[i][j] != 'B')
-				return 0;
-	return 1;
-}
+	*stageNumber += 1;
 
-int NextStage(GameState* state)
-{
-	state->stage++;
-	if (state->stage > MAXSTAGE)
+	if (*stageNumber > MAXSTAGE)
 	{
 		return 0;	// 게임 종료
 	}
-	RestartStage(state);
+
+	char mapfile[100];
+	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", *stageNumber);
+
+	LoadMap(mapfile, maze, originalMap, size);
+
+	FindPlayer(maze, x, y, size);
+
+	return 1;	// 다음 스테이지로 넘어감
+}
+
+int StageClear(char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE])
+{
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (originalMap[i][j] == 'G' && maze[i][j] != 'B')
+			{
+				return 0;	// G에 아직 B가 오지 않아서 아직 클리어 상태가 아님
+			}
+		}
+	}
 	return 1;
 }

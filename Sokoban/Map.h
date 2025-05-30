@@ -4,9 +4,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 20
+#define MAX_SIZE 20
 
-void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE])
+int GetStageSize(int stageNumber)
+{
+    if (stageNumber >= 1 && stageNumber <= 4)
+    {
+        return 10;
+    }
+
+    else if (stageNumber >= 5 && stageNumber <= 8)
+    {
+        return 15;
+    }
+
+    else
+    {
+        return 20;
+    }
+}
+
+void LoadMap(const char* map, char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE], int size)
 {
     FILE* file = fopen(map, "r");
 
@@ -18,9 +36,9 @@ void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE
     }
 
     // 파일 읽기 시작
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < SIZE; j++)
+        for (int j = 0; j < size; j++)
         {
             int ch = fgetc(file);
 
@@ -39,11 +57,11 @@ void LoadMap(const char* map, char maze[SIZE][SIZE], char originalMap[SIZE][SIZE
     fclose(file); // 파일 닫기
 }
 
-void FindPlayer(char maze[SIZE][SIZE], int* x, int* y)
+void FindPlayer(char maze[MAX_SIZE][MAX_SIZE], int* x, int* y, int size)
 {
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < SIZE; j++)
+        for (int j = 0; j < size; j++)
         {
             if (maze[i][j] == 'P')
             {

@@ -8,12 +8,15 @@
 #define MAX_SIZE 20
 #define MAXSTAGE 10
 
-int size;
+extern int size;
 
 void Restart(char resetMaze[MAX_SIZE][MAX_SIZE], int* x, int* y, int stageNumber)
 {
 	char mapfile[100];
-	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", stageNumber);
+
+	size = GetStageSize(stageNumber);
+
+	sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
 	LoadMap(mapfile, resetMaze, resetMaze, size);
 	FindPlayer(resetMaze, x, y, size);
 }
@@ -27,12 +30,14 @@ int NextStage(int* stageNumber, char maze[MAX_SIZE][MAX_SIZE], char originalMap[
 		return 0;	// 게임 종료
 	}
 
+	size = GetStageSize(*stageNumber);	// 다음 스테이지에 맞게 size 업데이트
+
 	char mapfile[100];
-	sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", *stageNumber);
-
+	sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", *stageNumber);
 	LoadMap(mapfile, maze, originalMap, size);
-
 	FindPlayer(maze, x, y, size);
+
+	Initialize();	// 콘솔 크기 다시 설정
 
 	return 1;	// 다음 스테이지로 넘어감
 }

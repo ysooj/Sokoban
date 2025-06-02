@@ -7,20 +7,16 @@
       "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Render.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Render.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\before.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:before.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{03B48E4B-8060-43E9-A3D2-C44F619C078A}|Sokoban.vcxproj|solutionrelative:Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -44,7 +40,7 @@
               "RelativeDocumentMoniker": "Source.c",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Source.c",
               "RelativeToolTip": "Source.c",
-              "ViewState": "AgIAALYAAAAAAAAAAAAmwMsAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAKMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-05-20T11:27:11.852Z",
               "EditorCaption": ""
@@ -57,69 +53,35 @@
               "RelativeDocumentMoniker": "Render.h",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Render.h",
               "RelativeToolTip": "Render.h",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAFMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAACcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-29T11:58:54.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Game.h",
               "RelativeDocumentMoniker": "Game.h",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Game.h",
               "RelativeToolTip": "Game.h",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACsAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-29T11:41:29.337Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Map.h",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Map.h",
               "RelativeDocumentMoniker": "Map.h",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\Map.h",
               "RelativeToolTip": "Map.h",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEwAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAAAEgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-22T11:08:30.632Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "c170eb32-5b0a-4ae4-acfd-3d01bc524140",
-        "Display": 0,
-        "X": 505,
-        "Y": 158,
-        "Width": 768,
-        "Height": 744,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "before.c",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\before.c",
-              "RelativeDocumentMoniker": "before.c",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Sokoban\\Sokoban\\before.c",
-              "RelativeToolTip": "before.c",
-              "ViewState": "AgIAAKcBAAAAAAAAAAAqwNsBAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-05-30T12:14:17.015Z",
               "EditorCaption": ""
             }
           ]

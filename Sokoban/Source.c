@@ -16,13 +16,14 @@ struct ball
     int ballY;
 };
 
+int size;
+
 int main()
 {
     char key = 0;
     int x = 2;
     int y = 1;
     int stageNumber = 1;
-    int size;
 
     // 타이머
     clock_t start;
@@ -34,11 +35,14 @@ int main()
     char currentStage[50];
 
     size = GetStageSize(stageNumber);
-    sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", stageNumber);
+
+    sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
     LoadMap(mapfile, maze, originalMap, size);
     FindPlayer(maze, &x, &y, size);
 
     sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+
+    SetConsoleTitle(TEXT("Sokoban Game"));
 
     Initialize();
 
@@ -48,13 +52,13 @@ int main()
     // 게임 시작 시 바로 맵 렌더링
     DrawMaze(maze, originalMap);
     textColor(DARKYELLOW);
-    Render(x, y, "★");
+    Render(MAP_START_X + x, MAP_START_Y + y, "★");
     textColor(WHITE);
-    Render(0, 20, "『");
-    Render(3, 20, currentStage);
-    Render(12, 20, "』");
-    Render(0, 22, "Press R to restart the stage!");
-    Render(0, 23, "Press Q to quit the game!");
+    Render(3, 1, "『");
+    Render(6, 1, currentStage);
+    Render(15, 1, "』");
+    Render(3, MAP_START_Y + size + 1, "Press R to restart the stage!");
+    Render(3, MAP_START_Y + size + 2, "Press Q to quit the game!");
 
     PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC | SND_LOOP);
 
@@ -133,26 +137,28 @@ int main()
 
         DrawMaze(maze, originalMap);
         textColor(DARKYELLOW);
-        Render(x, y, "★");
+        Render(MAP_START_X + x, MAP_START_Y + y, "★");
         textColor(WHITE);
-        Render(0, 20, "『");
-        Render(3, 20, currentStage);
-        Render(12, 20, "』");
-        Render(0, 22, "Press R to restart the stage!");
-        Render(0, 23, "Press Q to quit the game!");
+        Render(3, 1, "『");
+        Render(6, 1, currentStage);
+        Render(15, 1, "』");
+        Render(3, MAP_START_Y + size + 1, "Press R to restart the stage!");
+        Render(3, MAP_START_Y + size + 2, "Press Q to quit the game!");
 
         // 실시간 시간 출력
         clock_t current = clock();
         double elapsed = (double)(current - start) / CLOCKS_PER_SEC;
-        double remainedTime = 60.0 - elapsed;
+        double remainedTime = 300.0 - elapsed;
 
         if (remainedTime <= 0.0)
         {
             Clear();
             textColor(RED);
-            Render(2, 10, "Time is up. You failed.");
+            Render(3, 8, "Time is up. You failed.");
             textColor(WHITE);
-            Render(2, 12, "Press S to restart the game or Q to quit.");
+            Render(3, 10, "Press S to restart the game");
+            Render(3, 12, "or Q to quit.");
+
             Flip();
 
             while (1)
@@ -165,7 +171,7 @@ int main()
                         stageNumber = 1;
                         start = clock();
 
-                        sprintf_s(mapfile, sizeof(mapfile), "Map%d.txt", stageNumber);
+                        sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
                         LoadMap(mapfile, maze, originalMap, size);
                         FindPlayer(maze, &x, &y, size);
                         sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
@@ -186,7 +192,7 @@ int main()
         char timeStr[50];
         sprintf_s(timeStr, sizeof(timeStr), "Time Left: %.1f seconds", remainedTime);
         textColor(YELLOW);
-        Render(17, 20, timeStr);
+        Render(3, 2, timeStr);
         textColor(WHITE);
 
         if (StageClear(maze, originalMap))
@@ -194,7 +200,7 @@ int main()
             if (!NextStage(&stageNumber, maze, originalMap, &x, &y))
             {
                 Clear();
-                Render(0, 5, "All stages cleared. Congratulations!");
+                Render(3, 5, "All stages cleared. Congratulations!");
                 Flip();
                 Sleep(3000);	// 3초 후 break
                 break;
@@ -207,7 +213,7 @@ int main()
         }
 
         textColor(DARKYELLOW);
-        Render(x, y, "★");
+        Render(MAP_START_X + x, MAP_START_Y + y, "★");
         textColor(WHITE);
     }
 
@@ -215,3 +221,5 @@ int main()
     return 0;
 }
 
+// 콘솔 창 제목 바꾸기
+// 공이 스스로 움직이게 하기

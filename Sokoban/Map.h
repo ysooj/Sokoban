@@ -8,19 +8,14 @@
 
 int GetStageSize(int stageNumber)
 {
-    if (stageNumber >= 1 && stageNumber <= 4)
+    if (stageNumber >= 1 && stageNumber <= 5)   // 1 ~ 5 단계는 10 x 10 크기
     {
         return 10;
     }
 
-    else if (stageNumber >= 5 && stageNumber <= 8)
+    else  // 6 ~ 10 단계는 15 x 15 크기
     {
         return 15;
-    }
-
-    else
-    {
-        return 20;
     }
 }
 

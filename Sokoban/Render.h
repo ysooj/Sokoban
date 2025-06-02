@@ -5,6 +5,10 @@
 #include <string.h>		// string 관련
 
 #define MAX_SIZE 20
+#define MAP_START_Y 4	// UI 아래쪽에 맵 렌더링
+#define MAP_START_X 3	// 콘솔창 왼쪽 여백
+
+extern int size;
 
 enum Color
 {
@@ -32,8 +36,8 @@ HANDLE screen[2];
 void Initialize()	// 초기화 함수. Initialize Screen
 {
 	CONSOLE_CURSOR_INFO cursor;	// 커서에 대한 정보
-	COORD bufferSize = { size * 2, size };	// 문자 폭 * 2 (한글 2byte 또는 Render(j*2, i, ...) 고려)
-	SMALL_RECT windowSize = { 0, 0, size * 2 + 5, size + 5 };
+	COORD bufferSize = { 15 * 2, 15 };	// 문자 폭 * 2 (한글 2byte 또는 Render(j*2, i, ...) 고려)
+	SMALL_RECT windowSize = { 0, 0, 15 * 2 + 5, 15 + 7 };
 
 	cursor.dwSize = 1;
 	cursor.bVisible = FALSE; // FALSE = 0
@@ -90,21 +94,24 @@ void DrawMaze(char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE
 	{
 		for (int j = 0; j < size; j++)
 		{
+			int renderY = MAP_START_Y + i;	// Y 위치를 아래로 내림
+			int renderX = MAP_START_X + j * 2;
+
 			if (maze[i][j] == '0')
 			{
-				Render(j * 2, i, "  ");
+				Render(renderX , renderY, "  ");
 			}
 
 			else if (maze[i][j] == '1')
 			{
 				textColor(WHITE);
-				Render(j * 2, i, "■");
+				Render(renderX, renderY, "■");
 			}
 
 			else if (maze[i][j] == 'G')
 			{
 				textColor(RED);
-				Render(j * 2, i, "○");
+				Render(renderX, renderY, "○");
 			}
 
 			else if (maze[i][j] == 'B')
@@ -113,12 +120,12 @@ void DrawMaze(char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE
 				if (originalMap[i][j] == 'G')
 				{
 					textColor(PURPLE);
-					Render(j * 2, i, "●");  // 예: 골 위에 있는 공 표시
+					Render(renderX, renderY, "●");  // 예: 골 위에 있는 공 표시
 				}
 				else
 				{
 					textColor(GREEN);
-					Render(j * 2, i, "●");
+					Render(renderX, renderY, "●");
 				}
 			}
 		}

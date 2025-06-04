@@ -45,30 +45,24 @@ int main()
 
     char maze[MAX_SIZE][MAX_SIZE];
     char originalMap[MAX_SIZE][MAX_SIZE];
-
-    char mapfile[100];
     char currentStage[50];
 
     // 무작위성 시드 설정
     srand((unsigned int)time(NULL));
 
     SetConsoleTitle(TEXT("Sokoban Game"));
-    Initialize();
+    Initialize();   // 먼저 더블 버퍼 초기화
 
     // 타이틀 화면 출력
-    Title("hello.txt");
-    while (!_kbhit())     // 아무 키 대기
+    Title("hello.txt"); // 더블 버퍼 기반으로 렌더링
+    while (!_kbhit())   // 아무 키 대기
     {
         Sleep(50);
     }
     _getch(); // 입력 소비
 
     // stage 1 맵 로드
-    size = GetStageSize(stageNumber);
-    sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
-    LoadMap(mapfile, maze, originalMap, size);
-    FindPlayer(maze, &x, &y, size);
-    sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+    LoadStage(stageNumber, maze, originalMap, &x, &y, currentStage);
 
     // 타이머 시작
     start = clock();
@@ -325,11 +319,7 @@ int main()
                     {
                         stageNumber = 1;
                         start = clock();
-
-                        sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
-                        LoadMap(mapfile, maze, originalMap, size);
-                        FindPlayer(maze, &x, &y, size);
-                        sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+                        LoadStage(stageNumber, maze, originalMap, &x, &y, currentStage);
                         break;
                     }
 
@@ -337,12 +327,7 @@ int main()
                     {
                         // 현재 스테이지 다시 시작
                         start = clock();
-
-                        size = GetStageSize(stageNumber);
-                        sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
-                        LoadMap(mapfile, maze, originalMap, size);
-                        FindPlayer(maze, &x, &y, size);
-                        sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+                        LoadStage(stageNumber, maze, originalMap, &x, &y, currentStage);
                         break;
                     }
 

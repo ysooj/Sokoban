@@ -1,0 +1,22 @@
+﻿  Source.c
+C:\Users\Administrator\Desktop\Sokoban\Sokoban\Render.h(87,38): warning C4267: '함수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Users\Administrator\Desktop\Sokoban\Sokoban\Game.h(32,19): warning C4047: '함수': 'int *'의 간접 참조 수준이 'int **'과(와) 다릅니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Users\Administrator\Desktop\Sokoban\Sokoban\Game.h(32,19): warning C4024: 'FindPlayer': 형식 및 실제 매개 변수 2의 형식이 서로 다릅니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Users\Administrator\Desktop\Sokoban\Sokoban\Game.h(32,23): warning C4047: '함수': 'int *'의 간접 참조 수준이 'int **'과(와) 다릅니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+C:\Users\Administrator\Desktop\Sokoban\Sokoban\Game.h(32,23): warning C4024: 'FindPlayer': 형식 및 실제 매개 변수 3의 형식이 서로 다릅니다.
+  (소스 파일 'Source.c'을(를) 컴파일하는 중)
+  
+  코드를 생성하고 있습니다.
+  1 of 22 functions ( 4.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  Sokoban.vcxproj -> C:\Users\Administrator\Desktop\Sokoban\Sokoban\x64\Release\Sokoban.exe

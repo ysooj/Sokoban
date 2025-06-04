@@ -141,14 +141,9 @@ void Release()	// Release Screen
 
 void Title(const char * filename)	// 시작 이미지
 {
-	// 콘솔 크기 설정 (Initialize와 같은 크기로 맞춤)
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	COORD bufferSize = { 15 * 2, 15 };  // 30 x 15
-	SMALL_RECT windowSize = { 0, 0, 15 * 2 + 5, 15 + 7 };
-
-	SetConsoleScreenBufferSize(hConsole, bufferSize);
-	SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
+	// 콘솔 버퍼 초기화
+	Clear();
+	textColor(YELLOW);
 
 	FILE* file;
 	fopen_s(&file, filename, "r");
@@ -159,11 +154,8 @@ void Title(const char * filename)	// 시작 이미지
 		return;
 	}
 
-	Clear();	// 기준 콘솔 초기화
-	textColor(YELLOW);
-
 	char line[128];
-	int y = 7;  // Y 좌표 시작 위치
+	int y = 1;  // Y 좌표 시작 위치
 	while (fgets(line, sizeof(line), file))
 	{
 		// 줄바꿈 문자 제거
@@ -175,5 +167,6 @@ void Title(const char * filename)	// 시작 이미지
 
 	textColor(WHITE);
 	Render(1, y + 1, "Press any key to start...");
-	Flip();
+
+	Flip();	// 더블 버퍼로 출력
 }

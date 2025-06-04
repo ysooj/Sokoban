@@ -21,6 +21,19 @@ void Restart(char resetMaze[MAX_SIZE][MAX_SIZE], int* x, int* y, int stageNumber
 	FindPlayer(resetMaze, x, y, size);
 }
 
+void LoadStage(int stageNumber, char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE], int* x, int* y, char* currentStage)
+{
+	size = GetStageSize(stageNumber);
+
+	char mapfile[100];
+	sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
+
+	LoadMap(mapfile, maze, originalMap, size);
+	FindPlayer(maze, &x, &y, size);
+
+	sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
+}
+
 int NextStage(int* stageNumber, char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE], int* x, int* y)
 {
 	*stageNumber += 1;

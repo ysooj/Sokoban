@@ -18,7 +18,8 @@ struct ball
 
 int size;
 
-int stageTimeLimits[21] = {
+int stageTimeLimits[21] = 
+{
     0,    // 인덱스 0 unused
     10,   // stage 1
     20,   // stage 2
@@ -51,17 +52,23 @@ int main()
     // 무작위성 시드 설정
     srand((unsigned int)time(NULL));
 
-    size = GetStageSize(stageNumber);
+    SetConsoleTitle(TEXT("Sokoban Game"));
+    Initialize();
 
+    // 타이틀 화면 출력
+    Title("hello.txt");
+    while (!_kbhit())     // 아무 키 대기
+    {
+        Sleep(50);
+    }
+    _getch(); // 입력 소비
+
+    // stage 1 맵 로드
+    size = GetStageSize(stageNumber);
     sprintf_s(mapfile, sizeof(mapfile), "Map/Map%d.txt", stageNumber);
     LoadMap(mapfile, maze, originalMap, size);
     FindPlayer(maze, &x, &y, size);
-
     sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);
-
-    SetConsoleTitle(TEXT("Sokoban Game"));
-
-    Initialize();
 
     // 타이머 시작
     start = clock();
@@ -113,7 +120,8 @@ int main()
             // 개발을 용이하게 하기 위한 방법
             else if (key == 'T' || key == 't')
             {
-                if (!NextStage(&stageNumber, maze, originalMap, &x, &y)) {
+                if (!NextStage(&stageNumber, maze, originalMap, &x, &y))
+                {
                     Clear();
                     Render(3, 5, "All stages cleared.");
                     textColor(DARKSKYBLUE);
@@ -369,6 +377,8 @@ int main()
                 gameRunning = 0;
                 break;
             }
+
+            start = clock();  // 새 스테이지 시작 시간 재설정
 
             // stageNumber가 바뀌었으므로 currentStage 갱신
             sprintf_s(currentStage, sizeof(currentStage), "Stage %d", stageNumber);

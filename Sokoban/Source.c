@@ -50,11 +50,12 @@ int main()
     // 무작위성 시드 설정
     srand((unsigned int)time(NULL));
 
-    SetConsoleTitle(TEXT("Sokoban Game"));
+    SetConsoleTitle(TEXT("MOVE BALLS"));
     Initialize();   // 먼저 더블 버퍼 초기화
 
     // 타이틀 화면 출력
-    Title("hello.txt"); // 더블 버퍼 기반으로 렌더링
+    MainTitle(); // 더블 버퍼 기반으로 렌더링
+
     while (!_kbhit())   // 아무 키 대기
     {
         Sleep(50);
@@ -68,15 +69,7 @@ int main()
     start = clock();
 
     // 게임 시작 시 바로 맵 렌더링
-    DrawMaze(maze, originalMap);
-    textColor(DARKYELLOW);
-    Render(MAP_START_X + x, MAP_START_Y + y, "★");
-    textColor(WHITE);
-    Render(3, 1, "『");
-    Render(6, 1, currentStage);
-    Render(15, 1, "』");
-    Render(3, MAP_START_Y + size + 1, "Press R to restart the stage!");
-    Render(3, MAP_START_Y + size + 2, "Press Q to quit the game!");
+    RenderMap(maze, originalMap, &x, &y, currentStage);
 
     PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC | SND_LOOP);
 
@@ -117,12 +110,8 @@ int main()
                 if (!NextStage(&stageNumber, maze, originalMap, &x, &y))
                 {
                     Clear();
-                    Render(3, 5, "All stages cleared.");
-                    textColor(DARKSKYBLUE);
-                    Render(3, 7, "Congratulations!");
-                    textColor(WHITE);
-                    Flip();
-                    Sleep(3000); // 3초 후 종료
+                    Ending();
+                    Sleep(300000); // 3초 후 종료
                     gameRunning = 0;
                     break;
                 }
@@ -274,15 +263,7 @@ int main()
             }
         }
 
-        DrawMaze(maze, originalMap);
-        textColor(DARKYELLOW);
-        Render(MAP_START_X + x, MAP_START_Y + y, "★");
-        textColor(WHITE);
-        Render(3, 1, "『");
-        Render(6, 1, currentStage);
-        Render(15, 1, "』");
-        Render(3, MAP_START_Y + size + 1, "Press R to restart the stage!");
-        Render(3, MAP_START_Y + size + 2, "Press Q to quit the game!");
+        RenderMap(maze, originalMap, &x, &y, currentStage);
 
         // 실시간 시간 출력 ; 게임 전체 타이머 설정 코드
         // clock_t current = clock();
@@ -299,13 +280,15 @@ int main()
         if (remainedTime <= 0.0)
         {
             Clear();
-            textColor(RED);
-            Render(3, 7, "Time is up. You failed.");
             textColor(WHITE);
-            Render(3, 10, "Press R to restart the stage!");
+            TimeUp("clock.txt");
+            textColor(RED);
+            Render(3, 16, "Time is up. You failed.");
+            textColor(WHITE);
+            Render(3, 18, "Press R to restart the stage!");
             textColor(YELLOW);
-            Render(3, 12, "Press S to restart the game");
-            Render(3, 13, "or Q to quit.");
+            Render(3, 20, "Press S to restart the game");
+            Render(3, 21, "or Q to quit.");
             textColor(WHITE);
 
             Flip();
@@ -353,11 +336,7 @@ int main()
             if (!NextStage(&stageNumber, maze, originalMap, &x, &y))
             {
                 Clear();
-                Render(8, 9, "All stages cleared.");
-                textColor(DARKSKYBLUE);
-                Render(9, 11, "Congratulations!");
-                textColor(WHITE);
-                Flip();
+                Ending();
                 Sleep(3000); // 3초 후 종료
                 gameRunning = 0;
                 break;

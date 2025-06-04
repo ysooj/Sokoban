@@ -30,6 +30,22 @@ enum Color
 	WHITE
 };
 
+struct Title
+{
+	const char* filename;
+	int startX;
+	int startY;
+	int color;
+};
+
+struct Ending
+{
+	const char* filename;
+	int startX;
+	int startY;
+	int color;
+};
+
 int screenIndex;	// 버퍼의 인덱스 번호
 HANDLE screen[2];
 
@@ -139,34 +155,133 @@ void Release()	// Release Screen
 	CloseHandle(screen[1]);
 }
 
-void Title(const char * filename)	// 시작 이미지
+void MainTitle()	// 시작 이미지
 {
-	// 콘솔 버퍼 초기화
-	Clear();
-	textColor(YELLOW);
+	Clear();	// 더블 버퍼 초기화
 
-	FILE* file;
-	fopen_s(&file, filename, "r");
-
-	if (file == NULL)
+	struct Title title[] =
 	{
-		printf("Error: Could not open %s\n", filename);
+		{"title/M.txt", 2, 1, PURPLE},
+		{"title/O.txt", 10, 1, DARKYELLOW},
+		{"title/V.txt", 18, 1, GREEN},
+		{"title/E.txt", 28, 1, BLUE},
+		{"title/B.txt", 2, 7, BLUE},
+		{"title/A.txt", 9, 7, DARKBLUE},
+		{"title/L1.txt", 15, 7, GREEN},
+		{"title/L2.txt", 21, 7, DARKYELLOW},
+		{"title/S.txt", 27, 7, PURPLE},
+		{"title/PUSHING.txt", 2, 13, YELLOW},
+	};
+
+	for (int i = 0; i < sizeof(title) / sizeof(title[0]); i++)
+	{
+		FILE* file;
+		fopen_s(&file, title[i].filename, "r");
+
+		if (file == NULL)
+		{
+			// 파일 못 읽으면 그냥 다음으로
+			continue;
+		}
+
+		textColor(title[i].color);
+
+		char line[128];
+		int y = 0;  // Y 좌표 시작 위치
+		while (fgets(line, sizeof(line), file))
+		{
+			// 줄바꿈 문자 제거
+			line[strcspn(line, "\r\n")] = '\0';	// 줄바꿈 제거
+			Render(title[i].startX, title[i].startY + y++, line);	// 위치 출력
+		}
+
+		fclose(file);
+	}
+
+	textColor(WHITE);	// 기본색 복구
+	Render(6, 21, "Press any key to start!");
+
+	Flip();	// 더블 버퍼로 출력
+}
+
+void Ending()	// 시작 이미지
+{
+	Clear();	// 더블 버퍼 초기화
+
+	struct Ending ending[] =
+	{
+		{"ending/C.txt", 1, 2, RED},
+		{"ending/L1.txt", 8, 2, DARKYELLOW},
+		{"ending/E.txt", 13, 2, GREEN},
+		{"ending/A.txt", 19, 2, SKYBLUE},
+		{"ending/R.txt", 25, 2, BLUE},
+		{"ending/yes.txt", 32, 2, PURPLE},
+		{"ending/eye.txt", 6, 10, DARKGRAY},
+		{"ending/eye.txt", 23, 10, DARKGRAY},
+		{"ending/boll1.txt", 0, 13, DARKRED},
+		{"ending/boll2.txt", 26, 13, DARKRED},
+		{"ending/smile.txt", 13, 14, DARKGRAY},
+	};
+
+	for (int i = 0; i < sizeof(ending) / sizeof(ending[0]); i++)
+	{
+		FILE* file;
+		fopen_s(&file, ending[i].filename, "r");
+
+		if (file == NULL)
+		{
+			// 파일 못 읽으면 그냥 다음으로
+			continue;
+		}
+
+		textColor(ending[i].color);
+
+		char line[128];
+		int y = 0;  // Y 좌표 시작 위치
+		while (fgets(line, sizeof(line), file))
+		{
+			// 줄바꿈 문자 제거
+			line[strcspn(line, "\r\n")] = '\0';	// 줄바꿈 제거
+			Render(ending[i].startX, ending[i].startY + y++, line);	// 위치 출력
+		}
+
+		fclose(file);
+	}
+
+	textColor(WHITE);	// 기본색 복구
+	Render(10, 19, "Congratulations!");
+
+	Flip();	// 더블 버퍼로 출력
+}
+
+void TimeUp(const char* filename)
+{
+	FILE* file = fopen(filename, "r");
+	if (file == NULL) {
+		printf("Error: Cannot open file %s\n", filename);
 		return;
 	}
 
 	char line[128];
-	int y = 1;  // Y 좌표 시작 위치
-	while (fgets(line, sizeof(line), file))
-	{
+	int y = 0;
+	while (fgets(line, sizeof(line), file)) {
 		// 줄바꿈 문자 제거
-		line[strcspn(line, "\r\n")] = '\0';
-		Render(1, y++, line);  // X좌표 10은 여백 고려
+		line[strcspn(line, "\r\n")] = '\0';	// 줄바꿈 제거
+		Render(3, 1 + y++, line);	// 위치 출력
 	}
 
 	fclose(file);
+}
 
+
+void RenderMap(char maze[MAX_SIZE][MAX_SIZE], char originalMap[MAX_SIZE][MAX_SIZE], int* x, int* y, char* currentStage)
+{
+	DrawMaze(maze, originalMap);
+	textColor(DARKYELLOW);
 	textColor(WHITE);
-	Render(1, y + 1, "Press any key to start...");
-
-	Flip();	// 더블 버퍼로 출력
+	Render(3, 1, "『");
+	Render(6, 1, currentStage);
+	Render(15, 1, "』");
+	Render(3, MAP_START_Y + size + 1, "Press R to restart the stage!");
+	Render(3, MAP_START_Y + size + 2, "Press Q to quit the game!");
 }

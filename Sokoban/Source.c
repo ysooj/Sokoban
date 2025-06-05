@@ -111,7 +111,7 @@ int main()
                 {
                     Clear();
                     Ending();
-                    Sleep(300000); // 3초 후 종료
+                    Sleep(3000); // 3초 후 종료
                     gameRunning = 0;
                     break;
                 }

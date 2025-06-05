@@ -1,0 +1,20 @@
+ZZ    ZZ   ZZZ   ZZ   ZZ ZZZZZZ    
+ZZZ  ZZZ  Z   Z  ZZ   ZZ Z         
+Z  ZZZ Z ZZ   ZZ ZZ   ZZ ZZZZZZ    
+Z  ZZ  Z  Z   Z   ZZZZZ  Z         
+Z      Z   ZZZ     ZZ    ZZZZZZ    
+                                        
+ZZZZZ   ZZZ   Z     Z     ZZZZ   
+ZZ  ZZ ZZ  Z  Z     Z    ZZ       
+ZZZZZ  ZZ  Z  Z     Z     ZZZZ   
+ZZ  ZZ ZZZZZ  Z     Z        ZZ  
+ZZZZZ  ZZ  Z  ZZZZ  ZZZZ  ZZZZ  
+
+         ZZZZ         
+         ZZZZ       ZZZZZZ 
+      ZZZZZZZZZZZ ZZZZZZZZZZ
+     ZZZZ        ZZZZZZZZZZZZ
+     ZZZ        ZZZZZZZZZZZZZZ
+   ZZZZZZ        ZZZZZZZZZZZZ
+  ZZZ  ZZZ        ZZZZZZZZZZ
+ ZZZ  ZZZ           ZZZZZZ
